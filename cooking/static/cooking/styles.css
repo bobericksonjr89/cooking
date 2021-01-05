@@ -19,7 +19,7 @@ a:link, a:visited {
 
 .nav-links {
     margin: 0 10px;
-    padding: 0.2em;
+    padding: 0.2em 0.2em 0.2em 0;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

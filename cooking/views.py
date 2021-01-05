@@ -16,15 +16,57 @@ def index(request):
 
 
 def register(request):
-    return
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+
+        # password match check
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "cooking/register.html", {
+                "message": "Passwords did not match."
+            })
+
+        # create user
+        try:
+            user = User.objects.create_user(username, email, password)
+            user.save()
+        except IntegrityError:
+            return render(request, "cooking/register.html", {
+                "message": "Profile already exists with this username."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "cooking/register.html")
 
 
 def login_view(request):
-    return
+    if request.method == "POST":
+
+        # Attempt to sign user in
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+
+        # Check authetication
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "cooking/login.html", {
+                "message": "Could not validate username and/or password."
+            })
+
+    # render login page if request is not POST
+    else:        
+        return render(request, "cooking/login.html")
 
 
 def logout_view(request):
-    return
+    logout(request)
+    return HttpResponseRedirect(reverse("index"))
 
 
 def add_recipe(request):
