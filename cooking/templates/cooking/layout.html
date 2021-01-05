@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>How We Eat</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'cooking/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="nav-bar">
+            <ul class="nav-links">
+                <a class="site-header" href="{% url 'index' %}">How We Eat</a>
+                <li class="nav-item"><a href="#">Add Recipe</a></li>
+                <li class="nav-item"><a href="#">Browse Recipes</a></li>
+                <li class="nav-item"><a href="#">Make Menu</a></li>
+                <li class="nav-item"><a href="#">Search</a></li>
+                <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+                <li class="nav-item"><a href="{% url 'register' %}">Register</a></li>
+                <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
+                <li class="nav-item"><a href="#">User</a></li>
+            </ul>
+        </nav>
+
+
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

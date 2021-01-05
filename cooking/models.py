@@ -20,8 +20,14 @@ class RecipeItem(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(RecipeItem, on_delete=models.CASCADE)
+    
+
 class Menu(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
     starter = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="starter_recipe")
     first = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="first_recipe")
     second = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="second_recipe")
