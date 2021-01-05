@@ -15,14 +15,13 @@ class RecipeItem(models.Model):
     servings = models.IntegerField()
     ingredients = models.TextField()
     directions = models.TextField()
-
-
-class Complement(models.Model):
-    recipe_a = models.ForeignKey(RecipeItem, on_delete=models.CASCADE, related_name="complemented")
-    recipe_b = models.ForeignKey(RecipeItem, on_delete=models.CASCADE, related_name="complementee")
+    course = models.CharField(max_length=30)
+    cuisine = models.CharField(max_length=30)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Menu(models.Model):
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     starter = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="starter_recipe")
     first = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="first_recipe")
     second = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="second_recipe")
