@@ -12,7 +12,17 @@ from .models import User, RecipeItem, Favorite, Menu
 
 # Create your views here.
 def index(request):
-    return render(request, "cooking/index.html")
+    # get all recipes from db
+    recipe_items = RecipeItem.objects.all()
+
+    # loop to convert ingredients and directions from markdown into html
+    for recipe_item in recipe_items:
+        recipe_item.ingredients = markdown2.markdown(recipe_item.ingredients)
+        recipe_item.directions = markdown2.markdown(recipe_item.directions)
+        
+    return render(request, "cooking/index.html", {
+        "recipe_items": recipe_items
+    })
 
 
 def register(request):

@@ -2,4 +2,20 @@
 
 {% block body %}
     <p>Hello, world!</p>
+    <div class="recipe-container">
+    {% for recipe_item in recipe_items %}
+        <div class="recipe-box">
+            <div>{{ recipe_item.cuisine }}</div>
+            <div>{{ recipe_item.course }}</div>
+            <div>{{ recipe_item.servings }}</div>
+            <div>{{ recipe_item.prep_time }}</div>
+            <div>{{ recipe_item.cook_time }}</div>
+            <div>{{ recipe_item.name }}</div>
+            <div>{{ recipe_item.image }}</div>
+            <div>{{ recipe_item.ingredients|safe }}</div>
+            <div>{{ recipe_item.creator }}</div>
+            <!--<div>{{ recipe_item.directions|safe }}</div>-->
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}
