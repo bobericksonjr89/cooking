@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 import markdown2
 
 from .models import User, RecipeItem, Favorite, Menu
+from .forms import RecipeForm
 
 
 # Create your views here.
@@ -80,24 +81,64 @@ def logout_view(request):
 
 
 def add_recipe(request):
-    return
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name'].capitalize()
+            image = form.cleaned_data['image']
+            prep_time = form.cleaned_data['prep_time']
+            cook_time = form.cleaned_data['cook_time']
+            servings = form.cleaned_data['servings']
+            ingredients = form.cleaned_data['ingredients']
+            directions = form.cleaned_data['directions']
+            course = form.cleaned_data['course']
+            cuisine = form.cleaned_data['cuisine'].capitalize()
+            creator = request.user
+            obj = RecipeItem(name=name, image=image, prep_time=prep_time, cook_time=cook_time,
+                servings=servings, ingredients=ingredients, directions=directions, course=course,
+                cuisine=cuisine, creator=creator)
+            obj.save()
+            return HttpResponseRedirect('/')
+
+    else:
+        form = RecipeForm(initial={
+            'ingredients': 'Formatted in a bulleted list using hyphens/dashes, as: \n- 1 tbsp oil \n- Half of an onion',
+            'directions': 'Formatted in a numbered list, as: \n1. Heat oil in a pan. \n2. Add onion to hot oil.'}
+            )
+
+    return render(request, 'cooking/add.html', {
+        'form': form,
+    })
 
 
 def browse_recipes(request):
-    return
+    cuisines = set(RecipeItem.objects.values_list('cuisine', flat=True))
+    return render(request, 'cooking/browse.html', {
+        "cuisines": cuisines,
+    })
 
 
 def menu_create(request):
-    return
+    return render(request, 'cooking/menu.html')
 
 
 def search_recipes(request):
-    return
+    return render(request, 'cooking/search.html')
+
+
+def profile(request, username):
+    user = User.objects.get(username=username)
+    recipe_items = RecipeItem.objects.filter(creator=user)
+    for recipe_item in recipe_items:
+        recipe_item.ingredients = markdown2.markdown(recipe_item.ingredients)
+        recipe_item.directions = markdown2.markdown(recipe_item.directions)
+
+    return render(request, "cooking/profile.html", {
+        'recipe_items': recipe_items
+    })
 
 
 def favorite_recipe(request):
     return
 
 
-def profile(request, username):
-    return

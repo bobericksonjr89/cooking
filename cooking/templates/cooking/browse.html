@@ -1,0 +1,19 @@
+{% extends "cooking/layout.html" %}
+
+{% block body %}
+<h2>Browse by Cuisine:</h2>
+    <ul>
+    {% for cuisine in cuisines %}
+        <li>{{ cuisine }}</li>
+    {% endfor %}
+    </ul>
+
+<h2>Browse by Course:</h2>
+    <ul>
+        <li>Starter</li>
+        <li>First</li>
+        <li>Second</li>
+        <li>Side</li>
+        <li>Dessert</li>
+    </ul>
+{% endblock %}
