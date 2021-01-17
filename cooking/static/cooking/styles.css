@@ -47,11 +47,45 @@ a:link, a:visited {
 .recipe-container {
     display: flex;
     flex-wrap: wrap;
+    border: 1px solid black;
 }
 
 .recipe-box {
-    max-width: 400px;
+    width: 400px;
+    border: 1px solid red;
+    margin: 5px;
+    padding: 2px;
 }
+
+
+.recipe-summary {
+    float: left;
+
+    border: 1px solid blue;
+}
+
+.recipe-data {
+    float: right;
+    text-align: right;
+    border: 1px solid green;
+}
+
+.recipe-details {
+    clear: both;
+
+    border: 1px solid black;
+}
+
+.recipe-creator {
+    display: inline;
+}
+
+.read-more {
+    display: inline;
+    float: right;
+}
+
+
 
 .add-form {
     display: flex;

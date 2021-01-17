@@ -1,20 +1,28 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
-    <p>Hello, world!</p>
     <div class="recipe-container">
     {% for recipe_item in recipe_items %}
         <div class="recipe-box">
-            <div>{{ recipe_item.cuisine }}</div>
-            <div>{{ recipe_item.course }}</div>
-            <div>{{ recipe_item.servings }}</div>
-            <div>{{ recipe_item.prep_time }}</div>
-            <div>{{ recipe_item.cook_time }}</div>
-            <div>{{ recipe_item.name }}</div>
-            <div>{{ recipe_item.image }}</div>
-            <div>{{ recipe_item.ingredients|safe }}</div>
-            <div>{{ recipe_item.creator }}</div>
-            <!--<div>{{ recipe_item.directions|safe }}</div>-->
+            <div class="recipe-summary">
+                <div class="recipe-cuisine">{{ recipe_item.cuisine }}</div>
+                <div class="recipe-course">{{ recipe_item.course }}</div>
+            </div>
+            <div class="recipe-data">
+                <div class="recipe-servings">{{ recipe_item.servings }} servings</div>
+                <div class="recipe-prep">Prep Time: {{ recipe_item.prep_time }} min</div>
+                <div class="recipe-cook">Cook Time: {{ recipe_item.cook_time }} min</div>
+            </div>
+            <div class="recipe-details">
+                <div class="recipe-name">{{ recipe_item.name }}</div>
+                {% if recipe_item.image %}
+                    <img class="recipe-image" src="{{ recipe_item.image.url }}">
+                {% endif %}
+                <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
+                <div class="recipe-creator">{{ recipe_item.creator }}</div>
+                <button class="read-more">Read more</button>
+                <!--<div class="">{{ recipe_item.directions|safe }}</div>-->
+            </div>
         </div>
     {% endfor %}
     </div>

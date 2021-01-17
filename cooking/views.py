@@ -112,6 +112,8 @@ def add_recipe(request):
 
 
 def browse_recipes(request):
+
+    # SETS are immutable, unordered ... should I order it alphabetically??
     cuisines = set(RecipeItem.objects.values_list('cuisine', flat=True))
     return render(request, 'cooking/browse.html', {
         "cuisines": cuisines,
