@@ -1,9 +1,10 @@
 {% extends "cooking/layout.html" %}
+{% load static %}
 
 {% block body %}
     <div class="recipe-container">
     {% for recipe_item in recipe_items %}
-        <div class="recipe-box">
+        <div class="recipe-box" id="recipe-box">
             <div class="recipe-summary">
                 <div class="recipe-cuisine">{{ recipe_item.cuisine }}</div>
                 <div class="recipe-course">{{ recipe_item.course }}</div>
@@ -21,9 +22,14 @@
                 <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
                 <div class="recipe-creator">{{ recipe_item.creator }}</div>
                 <button class="read-more">Read more</button>
-                <!--<div class="">{{ recipe_item.directions|safe }}</div>-->
+
+                <div class="recipe-directions">{{ recipe_item.directions|safe }}</div>
             </div>
         </div>
     {% endfor %}
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'cooking/index.js' %}"></script>
 {% endblock %}

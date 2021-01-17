@@ -85,7 +85,9 @@ a:link, a:visited {
     float: right;
 }
 
-
+.recipe-directions {
+    display: none;
+}
 
 .add-form {
     display: flex;
