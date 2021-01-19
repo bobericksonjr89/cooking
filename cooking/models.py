@@ -19,17 +19,22 @@ class RecipeItem(models.Model):
     cuisine = models.CharField(max_length=30)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
 
-class Favorite(models.Model):
+class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    item = models.ForeignKey(RecipeItem, on_delete=models.CASCADE)
-    
+    favorites = models.ManyToManyField(RecipeItem, related_name='favorited')
+
 
 class Menu(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    starter = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="starter_recipe")
-    first = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="first_recipe")
-    second = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="second_recipe")
-    side = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="veg_recipe")
-    dessert = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name="dessert_recipe")
+    starter = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='starter_recipe')
+    first = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='first_recipe')
+    second = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='second_recipe')
+    side = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='veg_recipe')
+    dessert = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='dessert_recipe')
+
+    def __str__(self):
+        return self.title

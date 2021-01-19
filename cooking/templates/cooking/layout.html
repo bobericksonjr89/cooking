@@ -10,24 +10,26 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="nav-bar">
-            <ul class="nav-links">
-                <a class="site-header" href="{% url 'index' %}">How We Eat</a>
-                {% if user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'add' %}">Add Recipe</a></li>
-                <li class="nav-item"><a href="{% url 'menu' %}">Make Menu</a></li>
-                {% endif %}
-                <li class="nav-item"><a href="{% url 'browse' %}">Browse Recipes</a></li>
-                <li class="nav-item"><a href="{% url 'search' %}">Search</a></li>
-                {% if user.is_authenticated %}
-                <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
-                <li class="nav-item"><a href="{% url 'profile' request.user %}">{{ request.user }}</a></li>
-                {% else %}
-                <li class="nav-item"><a href="{% url 'register' %}">Register</a></li>
-                <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+        <header class="nav-container">
+            <nav class="nav-bar">
+                <ul class="nav-links">
+                    <a class="site-header" href="{% url 'index' %}">How We Eat</a>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'add' %}">Add Recipe</a></li>
+                    <li class="nav-item"><a href="{% url 'menu' %}">Make Menu</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a href="{% url 'browse' %}">Browse Recipes</a></li>
+                    <li class="nav-item"><a href="{% url 'search' %}">Search</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+                    <li class="nav-item"><a href="{% url 'profile' request.user %}">{{ request.user }}</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'register' %}">Register</a></li>
+                    <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+    </header>
 
 
         <div class="body">

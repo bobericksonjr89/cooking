@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import markdown2
 
-from .models import User, RecipeItem, Favorite, Menu
+from .models import User, RecipeItem, UserProfile, Menu
 from .forms import RecipeForm
 
 

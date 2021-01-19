@@ -20,10 +20,13 @@
                     <img class="recipe-image" src="{{ recipe_item.image.url }}">
                 {% endif %}
                 <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
-                <div class="recipe-creator">{{ recipe_item.creator }}</div>
+                <div class="recipe-creator">Uploaded by: {{ recipe_item.creator }}</div>
                 <button class="read-more">Read more</button>
 
-                <div class="recipe-directions">{{ recipe_item.directions|safe }}</div>
+                <div class="recipe-expand">
+                    <div class="recipe-directions">{{ recipe_item.directions|safe }}</div>
+                    <button class="read-less">Read less</button>
+                </div>
             </div>
         </div>
     {% endfor %}
