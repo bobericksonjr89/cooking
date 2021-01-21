@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<form class="add-form" action="{% url 'add' %}" method="post">
+<form class="add-form" action="{% url 'add' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit">

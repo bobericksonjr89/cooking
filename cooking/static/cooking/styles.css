@@ -94,11 +94,23 @@ a:link, a:visited {
     font-size: 1.3em;
 }
 
+.recipe-image {
+    float: right;
+    max-height: 150px;
+    max-width: 300px;
+    padding-top: 40px;
+}
+
+.recipe-ingredients {
+    padding-top: 10px;
+}
 .recipe-creator {
+    clear: both;
     display: inline;
 }
 
 .read-more {
+    clear: both;
     display: inline;
     float: right;
 }
@@ -108,6 +120,7 @@ a:link, a:visited {
 }
 
 .read-less {
+    clear: both;
     float: right;
 }
 .add-form {

@@ -82,7 +82,7 @@ def logout_view(request):
 
 def add_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data['name'].capitalize()
             image = form.cleaned_data['image']

@@ -9,7 +9,7 @@ class User(AbstractUser):
 
 class RecipeItem(models.Model):
     name = models.CharField(max_length=100)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, upload_to='images/')
     prep_time = models.IntegerField()
     cook_time = models.IntegerField()
     servings = models.IntegerField()
