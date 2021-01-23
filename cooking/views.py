@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 import markdown2
 
 from .models import User, RecipeItem, UserProfile, Menu
-from .forms import RecipeForm
+from .forms import RecipeForm, MenuForm
 
 
 # Create your views here.
@@ -102,8 +102,8 @@ def add_recipe(request):
 
     else:
         form = RecipeForm(initial={
-            'ingredients': 'Formatted in a bulleted list using hyphens/dashes, as: \n- 1 tbsp oil \n- Half of an onion',
-            'directions': 'Formatted in a numbered list, as: \n1. Heat oil in a pan. \n2. Add onion to hot oil.'}
+            'ingredients': '- 1 tbsp oil \n- Half of an onion',
+            'directions': '1. Heat oil in a pan. \n2. Add onion to hot oil.'}
             )
 
     return render(request, 'cooking/add.html', {
@@ -113,19 +113,79 @@ def add_recipe(request):
 
 def browse_recipes(request):
 
+    menus = Menu.objects.all()
+
     # SETS are immutable, unordered ... should I order it alphabetically??
     cuisines = set(RecipeItem.objects.values_list('cuisine', flat=True))
     return render(request, 'cooking/browse.html', {
+        "menus": menus,
         "cuisines": cuisines,
     })
 
 
 def menu_create(request):
-    return render(request, 'cooking/menu.html')
+    if request.method == "POST":
+        form = MenuForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['name']
+            starter = form.cleaned_data['starter']
+            first = form.cleaned_data['first']
+            second = form.cleaned_data['second']
+            side1 = form.cleaned_data['side1']
+            side2 = form.cleaned_data['side2']
+            side3 = form.cleaned_data['side3']
+            dessert = form.cleaned_data['dessert']
+            obj = Menu(creator=request.user, title=title, starter=starter, first=first, second=second, 
+                side1=side1, side2=side2, side3=side3, dessert=dessert)
+            obj.save()
+            return HttpResponseRedirect('/')
+
+
+
+    else: 
+        form = MenuForm
+    
+    return render(request, 'cooking/menu.html', {
+        'form': form
+    })
 
 
 def search_recipes(request):
-    return render(request, 'cooking/search.html')
+    if request.method == "POST":
+        search = request.POST["search-field"]
+        if request.POST["search-radio"] == "recipe":
+            results = RecipeItem.objects.filter(name__icontains=search)
+            if not results:
+                message = "Sorry, couldn't find any results matching that query."
+                return render(request, 'cooking/search.html', {
+                    "results": results,
+                    "message": message
+                })
+
+        elif request.POST["search-radio"] == "ingredient":
+            results = RecipeItem.objects.filter(ingredients__icontains=search)
+            if not results:
+                message = "Sorry, couldn't find any results matching that query."
+                return render(request, 'cooking/search.html', {
+                    "results": results,
+                    "message": message
+                })
+
+        elif request.POST["search-radio"] == "menu": 
+            results = Menu.objects.filter(title__icontains=search)
+            if not results:
+                message = "Sorry, couldn't find any results matching that query."
+                return render(request, 'cooking/search.html', {
+                    "results": results,
+                    "message": message
+                })
+
+        return render(request, 'cooking/search.html', {
+            "results": results,
+        })
+
+    else:
+        return render(request, 'cooking/search.html')
 
 
 def profile(request, username):

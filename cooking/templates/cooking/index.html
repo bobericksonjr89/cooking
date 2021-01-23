@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+<div class="index-body">
     <div class="recipe-container">
     {% for recipe_item in recipe_items %}
         <div class="recipe-box" id="recipe-box">
@@ -20,7 +21,12 @@
                     <img class="recipe-image" src="{{ recipe_item.image.url }}">
                 {% endif %}
                 <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
-                <div class="recipe-creator">Uploaded by: {{ recipe_item.creator }}</div>
+                <div class="recipe-creator">Uploaded by: {{ recipe_item.creator }}
+                    {% if user.is_authenticated and user == recipe_item.creator %}
+                        <button>Edit</button><button>Delete</button>
+                    {% endif %}
+
+                </div>
                 <button class="read-more">Read more</button>
 
                 <div class="recipe-expand">
@@ -31,6 +37,7 @@
         </div>
     {% endfor %}
     </div>
+</div>
 {% endblock %}
 
 {% block script %}

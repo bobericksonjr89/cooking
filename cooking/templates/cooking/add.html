@@ -1,11 +1,11 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
-
-<form class="add-form" action="{% url 'add' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-
+<div class="add-body">
+    <form class="add-form" action="{% url 'add' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <input class="add-submit" type="submit" value="Submit">
+    </form>
+</div>
 {% endblock %}

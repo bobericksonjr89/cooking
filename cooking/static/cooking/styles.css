@@ -51,7 +51,7 @@ a:link, a:visited {
     }
 }
 
-.body {
+.index-body {
     display: flex;
     justify-content: center;
     min-width: 400px;
@@ -66,27 +66,28 @@ a:link, a:visited {
 }
 
 .recipe-box {
-    border: 1px solid red;
-    margin: 5px;
+    /*border: 1px solid red;*/
+    margin: 5px 5px 20px 5px;
     padding: 5px 2px 2px 2px;
+    border-bottom: 1px solid rgb(206, 206, 206)
 }
 
 
 .recipe-summary {
     float: left;
     font-style: italic;
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
 }
 
 .recipe-data {
     float: right;
     text-align: right;
     font-style: italic;
-    border: 1px solid green;
+    /*border: 1px solid green;*/
 }
 
 .recipe-details {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .recipe-name {
@@ -123,9 +124,28 @@ a:link, a:visited {
     clear: both;
     float: right;
 }
-.add-form {
+
+.add-body, .menu-body {
+    display: flex;
+    justify-content: center;
+
+}
+
+.add-form, .menu-form {
+    margin-top: 10px;
+    width: 600px;
+
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
-    max-width: 600px;
+    min-width: 400px;
+}
+
+.add-form label, .menu-form label {
+    margin-top: 10px;
+}
+
+.add-submit, .menu-submit {
+    margin-top: 10px;
 }

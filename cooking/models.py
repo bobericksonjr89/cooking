@@ -33,7 +33,9 @@ class Menu(models.Model):
     starter = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='starter_recipe')
     first = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='first_recipe')
     second = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='second_recipe')
-    side = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='veg_recipe')
+    side1 = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='side1_recipe')
+    side2 = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='side2_recipe')
+    side3 = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='side3_recipe')
     dessert = models.ForeignKey(RecipeItem, on_delete=models.SET_NULL, blank=True, null=True, related_name='dessert_recipe')
 
     def __str__(self):

@@ -1,5 +1,11 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
-
+<div class="menu-body">
+    <form class="menu-form" action="{% url 'menu' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input class="menu-submit" type="submit" value="Submit">
+    </form>
+</div>
 {% endblock %}

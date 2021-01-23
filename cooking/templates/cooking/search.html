@@ -1,5 +1,33 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
+<div class="search-body">
+    <form class="search-form" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input class="search-field" type="text" name="search-field">
 
+        <div class="search-radio">
+            <input type="radio" id="recipe" name="search-radio" value="recipe">
+            <label for="recipe">Recipe</label>
+
+            <input type="radio" id="ingredient" name="search-radio" value="ingredient">
+            <label for="recipe">Ingredient</label>
+
+            <input type="radio" id="menu" name="search-radio" value="menu">
+            <label for="menu">Menu</label>
+        </div>
+
+        <input class="search-submit" type="submit" value="Submit">
+    </form>
+
+    {% if results %}
+    <ul>
+        {% for result in results %}
+        <li>{{ result }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if message %}
+        <p>{{ message}}</p>
+    {% endif %}
 {% endblock %}
