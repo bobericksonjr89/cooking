@@ -1,26 +1,30 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
-<h2>Browse Menus:</h2>
-    <ul>
-    {% for menu in menus %}
-        <li>{{ menu }}</li>
-    {% endfor %}    
-    </ul>
+<div class="browse-body">
+    <div class="browse-container">
+        <div class="browse-category">
+            <h2>Browse Menus:</h2>
+            {% for menu in menus %}
+                <p>{{ menu }}</p>
+            {% endfor %}    
+                
+        </div>
+        <div class="browse-category">
+            <h2>Browse by Cuisine:</h2>
+            {% for cuisine in cuisines %}
+                <p>{{ cuisine }}</p>
+            {% endfor %}
 
-<h2>Browse by Cuisine:</h2>
-    <ul>
-    {% for cuisine in cuisines %}
-        <li>{{ cuisine }}</li>
-    {% endfor %}
-    </ul>
-
-<h2>Browse by Course:</h2>
-    <ul>
-        <li>Starter</li>
-        <li>First</li>
-        <li>Second</li>
-        <li>Side</li>
-        <li>Dessert</li>
-    </ul>
+        </div>
+        <div class="browse-category">
+            <h2>Browse by Course:</h2>
+                <p>Starter</p>
+                <p>First</p>
+                <p>Second</p>
+                <p>Side</p>
+                <p>Dessert</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

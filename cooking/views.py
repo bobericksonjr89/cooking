@@ -156,7 +156,7 @@ def search_recipes(request):
         if request.POST["search-radio"] == "recipe":
             results = RecipeItem.objects.filter(name__icontains=search)
             if not results:
-                message = "Sorry, couldn't find any results matching that query."
+                message = "Sorry, couldn't find any recipes matching that query."
                 return render(request, 'cooking/search.html', {
                     "results": results,
                     "message": message
@@ -165,7 +165,7 @@ def search_recipes(request):
         elif request.POST["search-radio"] == "ingredient":
             results = RecipeItem.objects.filter(ingredients__icontains=search)
             if not results:
-                message = "Sorry, couldn't find any results matching that query."
+                message = "Sorry, couldn't find any recipes with ingredients matching that query."
                 return render(request, 'cooking/search.html', {
                     "results": results,
                     "message": message
@@ -174,7 +174,7 @@ def search_recipes(request):
         elif request.POST["search-radio"] == "menu": 
             results = Menu.objects.filter(title__icontains=search)
             if not results:
-                message = "Sorry, couldn't find any results matching that query."
+                message = "Sorry, couldn't find any menus matching that query."
                 return render(request, 'cooking/search.html', {
                     "results": results,
                     "message": message
@@ -203,4 +203,6 @@ def profile(request, username):
 def favorite_recipe(request):
     return
 
+def delete_recipe(request):
+    return
 

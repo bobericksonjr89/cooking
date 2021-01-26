@@ -16,14 +16,18 @@
                 <div class="recipe-cook">Cook Time: {{ recipe_item.cook_time }} min</div>
             </div>
             <div class="recipe-details">
+                
                 <div class="recipe-name">{{ recipe_item.name }}</div>
                 {% if recipe_item.image %}
-                    <img class="recipe-image" src="{{ recipe_item.image.url }}">
+                    <img class="mobile-image" src="{{ recipe_item.image.url }}">
+                {% endif %}
+                {% if recipe_item.image %}
+                    <img class="recipe-image desktop-image" src="{{ recipe_item.image.url }}">
                 {% endif %}
                 <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
                 <div class="recipe-creator">Uploaded by: {{ recipe_item.creator }}
                     {% if user.is_authenticated and user == recipe_item.creator %}
-                        <button>Edit</button><button>Delete</button>
+                        <button>Edit</button><button class="delete">Delete</button>
                     {% endif %}
 
                 </div>
