@@ -1,10 +1,9 @@
 {% extends "cooking/layout.html" %}
-{% load static %}
 
 {% block body %}
 <div class="index-body">
     <div class="recipe-container">
-    {% for recipe_item in recipe_items %}
+
         <div class="recipe-box" id="recipe-box">
             <div class="recipe-summary">
                 <div class="recipe-cuisine">{{ recipe_item.cuisine }}</div>
@@ -31,19 +30,14 @@
                     {% endif %}
 
                 </div>
-                <button class="read-more">Read more</button>
 
-                <div class="recipe-expand">
+                <div class="recipe-expand show">
                     <div class="recipe-directions">{{ recipe_item.directions|safe }}</div>
                     <button class="read-less">Read less</button>
                 </div>
             </div>
         </div>
-    {% endfor %}
+
     </div>
 </div>
-{% endblock %}
-
-{% block script %}
-    <script src="{% static 'cooking/index.js' %}"></script>
 {% endblock %}

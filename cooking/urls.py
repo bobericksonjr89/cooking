@@ -13,6 +13,7 @@ urlpatterns = [
     path('search', views.search_recipes, name="search"),
     path('favorite', views.favorite_recipe, name="favorite"),
     path('profile/<str:username>', views.profile, name="profile"),
+    path('edit/<str:recipe_name>', views.edit_recipe, name="edit"),
 
     # API Routes
     path("delete", views.delete_recipe, name="delete")

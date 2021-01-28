@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 import markdown2
 
 from .models import User, RecipeItem, UserProfile, Menu
-from .forms import RecipeForm, MenuForm
+from .forms import RecipeForm, MenuForm, EditRecipeForm
 
 
 # Create your views here.
@@ -74,12 +74,12 @@ def login_view(request):
     else:        
         return render(request, "cooking/login.html")
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
-
+@login_required
 def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
@@ -122,7 +122,7 @@ def browse_recipes(request):
         "cuisines": cuisines,
     })
 
-
+@login_required
 def menu_create(request):
     if request.method == "POST":
         form = MenuForm(request.POST)
@@ -200,9 +200,41 @@ def profile(request, username):
     })
 
 
+@login_required
 def favorite_recipe(request):
     return
 
-def delete_recipe(request):
-    return
+@login_required
+def edit_recipe(request, recipe_name):
+    recipe_name = recipe_name.replace('-', ' ')
+    recipe_item = RecipeItem.objects.get(name__iexact=recipe_name)
+    if request.method == 'POST':
+        form = EditRecipeForm(request.POST, instance=recipe_item)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/index')
 
+    form = EditRecipeForm(instance=recipe_item)
+    
+    return render(request, "cooking/edit.html", {
+        'recipe_name': recipe_name,
+        'form': form
+    })
+
+
+@login_required
+def delete_recipe(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    # get data from json request
+    data = json.loads(request.body)
+    recipe_name = data.get("name")
+
+    # get recipe and confirm user, delete recipe if valid
+    recipe_to_delete = RecipeItem.objects.get(name=recipe_name)
+    if request.user != recipe_to_delete.creator:
+        return JsonResponse({"error": "Users can only delete their own recipes."}, status=400)
+    else:
+        recipe_to_delete.delete()
+        return JsonResponse({"message": "Recipe deleted successfully."}, status=201)

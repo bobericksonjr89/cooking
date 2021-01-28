@@ -19,6 +19,12 @@ class RecipeForm(forms.Form):
     directions = forms.CharField(widget=forms.Textarea)
     course = forms.CharField(widget=forms.Select(choices=COURSE_CHOICES))
     cuisine = forms.CharField(max_length=30)
+
+class EditRecipeForm(forms.ModelForm):
+    class Meta:
+        model = RecipeItem
+        fields = ('name', 'image', 'prep_time', 'cook_time', 'servings', 'ingredients',
+            'directions', 'cuisine',)
     
 
 class MenuForm(forms.Form):
