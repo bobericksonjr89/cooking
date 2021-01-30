@@ -20,7 +20,7 @@ def index(request):
     for recipe_item in recipe_items:
         recipe_item.ingredients = markdown2.markdown(recipe_item.ingredients)
         recipe_item.directions = markdown2.markdown(recipe_item.directions)
-        
+
     return render(request, "cooking/index.html", {
         "recipe_items": recipe_items
     })
@@ -49,8 +49,8 @@ def register(request):
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
-    else:
-        return render(request, "cooking/register.html")
+
+    return render(request, "cooking/register.html")
 
 
 def login_view(request):
@@ -71,7 +71,7 @@ def login_view(request):
             })
 
     # render login page if request is not POST
-    else:        
+    else:
         return render(request, "cooking/login.html")
 
 @login_required
@@ -135,24 +135,27 @@ def menu_create(request):
             side2 = form.cleaned_data['side2']
             side3 = form.cleaned_data['side3']
             dessert = form.cleaned_data['dessert']
-            obj = Menu(creator=request.user, title=title, starter=starter, first=first, second=second, 
-                side1=side1, side2=side2, side3=side3, dessert=dessert)
+            obj = Menu(creator=request.user, title=title, starter=starter, first=first,
+            second=second, side1=side1, side2=side2, side3=side3, dessert=dessert)
             obj.save()
             return HttpResponseRedirect('/')
 
-
-
-    else: 
-        form = MenuForm
-    
+    form = MenuForm
     return render(request, 'cooking/menu.html', {
         'form': form
     })
 
 
 def search_recipes(request):
+    ## REPEATING.. need to clean up
     if request.method == "POST":
         search = request.POST["search-field"]
+        if search == "":
+            message = "Please type something in the search box."
+            return render(request, 'cooking/search.html', {
+                    "message": message
+                })
+
         if request.POST["search-radio"] == "recipe":
             results = RecipeItem.objects.filter(name__icontains=search)
             if not results:
@@ -184,8 +187,7 @@ def search_recipes(request):
             "results": results,
         })
 
-    else:
-        return render(request, 'cooking/search.html')
+    return render(request, 'cooking/search.html')
 
 
 def profile(request, username):
@@ -215,7 +217,7 @@ def edit_recipe(request, recipe_name):
             return HttpResponseRedirect('/index')
 
     form = EditRecipeForm(instance=recipe_item)
-    
+
     return render(request, "cooking/edit.html", {
         'recipe_name': recipe_name,
         'form': form

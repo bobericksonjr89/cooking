@@ -27,7 +27,10 @@
                 <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
                 <div class="recipe-creator">Uploaded by: {{ recipe_item.creator }}
                     {% if user.is_authenticated and user == recipe_item.creator %}
-                        <a class="edit" href="{% url 'edit' recipe_item.name|slugify %}">Edit</a><button class="delete">Delete</button>
+                        <form class="fake-button" action="{% url 'edit' recipe_item.name|slugify %}">
+                            <input type="submit" value="Edit" />
+                        </form>
+                        <button class="delete">Delete</button>
                     {% endif %}
 
                 </div>

@@ -30,7 +30,7 @@ function delete_recipe(button) {
             }
             const name = name_element.innerHTML;
 
-            // removes it from the DOM
+            // removes it from the DOM with hide animation
             if (box.classList.contains('hide')) {
                 box.style.animationPlayState= 'running';
                 box.addEventListener('animationend', () => {

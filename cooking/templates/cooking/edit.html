@@ -1,11 +1,11 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
-<p>{{ recipe_item.name }}</p>
-
-<form action="{% url 'edit' recipe_name %}" method="post" id="edit_form">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit">
-</form>
+<div class="edit-body">
+    <form class="edit-form" action="{% url 'edit' recipe_name %}" method="post" id="edit_form">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+</div>
 {% endblock %}

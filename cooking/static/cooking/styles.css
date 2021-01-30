@@ -13,6 +13,17 @@ a:link, a:visited {
     color: #026670;
 }
 
+button {
+    font-family: inherit;
+
+}
+
+.fake-button {
+    display: inline;
+    font-family: inherit;
+    font-size: 1em;
+}
+
 .nav-container {
     display: flex;
     justify-content: center;
@@ -132,13 +143,13 @@ a:link, a:visited {
     float: right;
 }
 
-.add-body, .menu-body {
+.add-body, .menu-body, .edit-body {
     display: flex;
     justify-content: center;
 
 }
 
-.add-form, .menu-form {
+.add-form, .menu-form, .edit-form {
     margin-top: 10px;
     width: 600px;
 
@@ -173,6 +184,35 @@ a:link, a:visited {
     list-style: none;
 }
 
+.search-body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    align-self: center;
+    width: 300px;
+}
+
+.search-radio, .search-submit {
+    align-items: center;
+    margin-top: 10px;
+}
+
+.search-radio {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-results {
+    align-self: center;
+}
 .show {
     display: block;
 }
