@@ -19,8 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function delete_recipe(button) {
     var result = confirm("Are you sure you want to delete this recipe?");
         if (result) {
-            // finds closest parent element with this class
+            // finds closest parent element with recipe-box class
             const box = button.closest(".recipe-box");
+            console.log(box.classList.contains('hide'))
 
             // finds html element with the recipe name, then gets the name
             var name_element = button.parentElement.parentElement.querySelector(".recipe-name")
@@ -30,7 +31,12 @@ function delete_recipe(button) {
             const name = name_element.innerHTML;
 
             // removes it from the DOM
-            box.remove();
+            if (box.classList.contains('hide')) {
+                box.style.animationPlayState= 'running';
+                box.addEventListener('animationend', () => {
+                    box.remove();
+                })
+            };
 
             // get csrf token for fetch request
             let csrftoken = getCookie('csrftoken')

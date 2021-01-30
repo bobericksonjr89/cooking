@@ -61,7 +61,12 @@ a:link, a:visited {
     /*border: 1px solid red;*/
     margin: 5px 5px 20px 5px;
     padding: 5px 2px 2px 2px;
-    border-bottom: 1px solid rgb(206, 206, 206)
+    border-bottom: 1px solid rgb(206, 206, 206);
+
+    animation-name: hide;
+    animation-duration: .4s;
+    animation-fill-mode: backwards;
+    animation-play-state: paused;
 }
 
 
@@ -209,5 +214,21 @@ a:link, a:visited {
     .browse-category {
         display: flex;
         flex-direction: column;
+    }
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+        height: 100%;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+    }
+    
+    100% {
+        opacity: 0;
+        height: 50%;
     }
 }
