@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="edit-body">
-    <form class="edit-form" action="{% url 'edit' recipe_name %}" method="post" id="edit_form">
+    <form class="edit-form" action="{% url 'edit' recipe_name %}" method="post" id="edit_form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <input type="submit">

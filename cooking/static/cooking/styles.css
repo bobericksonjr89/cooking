@@ -238,6 +238,7 @@ button {
 
     .mobile-image {
         display: block;
+        clear: both;
     }
 
     .add-form, .menu-form {

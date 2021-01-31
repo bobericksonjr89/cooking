@@ -211,10 +211,10 @@ def edit_recipe(request, recipe_name):
     recipe_name = recipe_name.replace('-', ' ')
     recipe_item = RecipeItem.objects.get(name__iexact=recipe_name)
     if request.method == 'POST':
-        form = EditRecipeForm(request.POST, instance=recipe_item)
+        form = EditRecipeForm(request.POST, request.FILES, instance=recipe_item)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/index')
+            return HttpResponseRedirect('/')
 
     form = EditRecipeForm(instance=recipe_item)
 
