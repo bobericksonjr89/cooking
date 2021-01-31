@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="menu-body">
-    <form class="menu-form" action="{% url 'menu' %}" method="post">
+    <form class="menu-form" action="{% url 'new_menu' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input class="menu-submit" type="submit" value="Submit">

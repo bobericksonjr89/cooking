@@ -3,20 +3,21 @@
 {% block body %}
 <div class="browse-body">
     <div class="browse-container">
+        {% if menus %}
         <div class="browse-category">
-            <h2>Browse Menus:</h2>
-            {% for menu in menus %}
-                <p>{{ menu }}</p>
-            {% endfor %}    
-                
+                <h2>Browse Menus:</h2>
+                {% for menu in menus %}
+                    <a href="{% url 'menu' menu.title|slugify %}">{{ menu }}</a>
+                {% endfor %}     
         </div>
+        
         <div class="browse-category">
             <h2>Browse by Cuisine:</h2>
             {% for cuisine in cuisines %}
                 <p>{{ cuisine }}</p>
             {% endfor %}
-
         </div>
+
         <div class="browse-category">
             <h2>Browse by Course:</h2>
                 <p>Starter</p>
@@ -25,6 +26,15 @@
                 <p>Side</p>
                 <p>Dessert</p>
         </div>
+        {% endif %}
+
+
+        <!-- probably wrong
+        {% if menu_items %}
+            {% for menu_items.RecipeItem in menu_items %}
+                <p>{{ RecipeItem.name }}</p>
+            {% endfor %}
+        {% endif %}-->
     </div>
 </div>
 {% endblock %}

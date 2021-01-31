@@ -16,7 +16,7 @@
                     <a class="site-header" href="{% url 'index' %}">How We Eat</a>
                     {% if user.is_authenticated %}
                     <li class="nav-item"><a href="{% url 'add' %}">Add Recipe</a></li>
-                    <li class="nav-item"><a href="{% url 'menu' %}">Make Menu</a></li>
+                    <li class="nav-item"><a href="{% url 'new_menu' %}">Make Menu</a></li>
                     {% endif %}
                     <li class="nav-item"><a href="{% url 'browse' %}">Browse Recipes</a></li>
                     <li class="nav-item"><a href="{% url 'search' %}">Search</a></li>

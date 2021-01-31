@@ -74,10 +74,12 @@ def login_view(request):
     else:
         return render(request, "cooking/login.html")
 
+
 @login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
 
 @login_required
 def add_recipe(request):
@@ -112,15 +114,40 @@ def add_recipe(request):
 
 
 def browse_recipes(request):
-
     menus = Menu.objects.all()
-
     # SETS are immutable, unordered ... should I order it alphabetically??
     cuisines = set(RecipeItem.objects.values_list('cuisine', flat=True))
     return render(request, 'cooking/browse.html', {
         "menus": menus,
         "cuisines": cuisines,
     })
+
+
+def recipe_view(request, recipe_name):
+    recipe_name = recipe_name.replace('-', ' ')
+    recipe = RecipeItem.objects.get(name__iexact=recipe_name)
+    recipe.ingredients = markdown2.markdown(recipe.ingredients)
+    recipe.directions = markdown2.markdown(recipe.directions)
+    return render(request, 'cooking/recipe.html', {
+        'recipe': recipe,
+    })
+
+def menu_view(request, menu_name):
+    menu_name = menu_name.replace('-', ' ')
+    menu_items = Menu.objects.filter(title__iexact=menu_name)
+    #for menu_item in menu_items:
+    #    if menu_item:
+    #        menu_item.value = RecipeItem.objects.get(id=menu_item)
+    return render(request, 'cooking/browse.html', {
+        'menu_items': menu_items
+    })
+
+def cuisine_view(request, cuisine_name):
+    return
+
+def course_view(request, course_name):
+    return
+
 
 @login_required
 def menu_create(request):
@@ -205,6 +232,7 @@ def profile(request, username):
 @login_required
 def favorite_recipe(request):
     return
+
 
 @login_required
 def edit_recipe(request, recipe_name):
