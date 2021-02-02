@@ -14,27 +14,57 @@
         <div class="browse-category">
             <h2>Browse by Cuisine:</h2>
             {% for cuisine in cuisines %}
-                <p>{{ cuisine }}</p>
+                <a href="{% url 'cuisine' cuisine|slugify %}">{{ cuisine }}</a>
             {% endfor %}
         </div>
 
         <div class="browse-category">
             <h2>Browse by Course:</h2>
-                <p>Starter</p>
-                <p>First</p>
-                <p>Second</p>
-                <p>Side</p>
-                <p>Dessert</p>
+                <a href="{% url 'course' 'starter' %}">Starter</a>
+                <a href="{% url 'course' 'first' %}">First</a>
+                <a href="{% url 'course' 'second' %}">Second</a>
+                <a href="{% url 'course' 'side' %}">Side</a>
+                <a href="{% url 'course' 'dessert' %}">Dessert</a>
         </div>
         {% endif %}
-
-
-        <!-- probably wrong
-        {% if menu_items %}
-            {% for menu_items.RecipeItem in menu_items %}
-                <p>{{ RecipeItem.name }}</p>
-            {% endfor %}
-        {% endif %}-->
     </div>
+
+        
+    {% if menu_item %}
+    <div class="browse-menu">
+        <h3>{{ menu_item.title }}</h3>
+        {% if menu_item.starter %}
+        <a href="{% url 'recipe' menu_item.starter|slugify %}">{{ menu_item.starter }}</a>
+        {% endif %}
+        {% if menu_item.first %}
+        <a href="{% url 'recipe' menu_item.first|slugify %}">{{ menu_item.first }}</a>
+        {% endif %}
+        {% if menu_item.second %}
+        <a href="{% url 'recipe' menu_item.second|slugify %}">{{ menu_item.second }}</a>
+        {% endif %}
+        {% if menu_item.side1 %}
+        <a href="{% url 'recipe' menu_item.side1|slugify %}">{{ menu_item.side1 }}</a>
+        {% endif %}
+        {% if menu_item.side2 %}
+        <a href="{% url 'recipe' menu_item.side2|slugify %}">{{ menu_item.side2 }}</a>
+        {% endif %}
+        {% if menu_item.side3 %}
+        <a href="{% url 'recipe' menu_item.side3|slugify %}">{{ menu_item.side3 }}</a>
+        {% endif %}
+        {% if menu_item.dessert %}
+        <a href="{% url 'recipe' menu_item.dessert|slugify %}">{{ menu_item.dessert }}</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if recipes %}
+    <div class="browse-cuisine">
+        <h3>{{ category }}</h3>
+        {% for recipe in recipes %}
+            <a href="{% url 'recipe' recipe.name|slugify %}">{{ recipe.name }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 </div>
 {% endblock %}

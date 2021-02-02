@@ -1,20 +1,47 @@
 {% extends "cooking/layout.html" %}
+{% load static %}
 
 {% block body %}
-<div class="recipe-container">
-    {% for recipe_item in recipe_items %}
-        <div class="recipe-box">
-            <div>{{ recipe_item.cuisine }}</div>
-            <div>{{ recipe_item.course }}</div>
-            <div>{{ recipe_item.servings }}</div>
-            <div>{{ recipe_item.prep_time }}</div>
-            <div>{{ recipe_item.cook_time }}</div>
-            <div>{{ recipe_item.name }}</div>
-            <div>{{ recipe_item.image }}</div>
-            <div>{{ recipe_item.ingredients|safe }}</div>
-            <div>{{ recipe_item.creator }}</div>
-            <!--<div>{{ recipe_item.directions|safe }}</div>-->
-        </div>
-    {% endfor %}
+<div class="index-body">
+    <div class="recipe-container">
+        {% for recipe in recipes %}
+            <div class="recipe-box hide">
+                <div class="recipe-summary">
+                    <div class="recipe-cuisine">{{ recipe.cuisine }}</div>
+                    <div class="recipe-course">{{ recipe.course }}</div>
+                </div>
+                <div class="recipe-data">
+                    <div class="recipe-servings">{{ recipe.servings }} servings</div>
+                    <div class="recipe-prep">Prep Time: {{ recipe.prep_time }} min</div>
+                    <div class="recipe-cook">Cook Time: {{ recipe.cook_time }} min</div>
+                </div>
+                <div class="recipe-details">
+                    <div class="recipe-name">{{ recipe.name }}</div>
+                    {% if recipe.image %}
+                        <img class="mobile-image" src="{{ recipe.image.url }}">
+                    {% endif %}
+                    {% if recipe.image %}
+                        <img class="recipe-image desktop-image" src="{{ recipe.image.url }}">
+                    {% endif %}
+                    <div class="recipe-ingredients">{{ recipe.ingredients|safe }}</div>
+                    <div class="recipe-directions">{{ recipe.directions|safe }}</div>
+                    <div class="recipe-creator">Uploaded by: {{ recipe.creator }}
+                        {% if user.is_authenticated and user == recipe.creator %}
+                            <form class="fake-button" action="{% url 'edit' recipe.name|slugify %}">
+                                <input type="submit" value="Edit" />
+                            </form>
+                            <button class="delete">Delete</button>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
+</div>
+
+{% block script %}
+    <script src="{% static 'cooking/index.js' %}"></script>
+{% endblock %}
+
 {% endblock %}

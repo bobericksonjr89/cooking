@@ -181,8 +181,20 @@ button {
     padding: 0 7px;
 }
 
-.browse-category li {
-    list-style: none;
+.browse-category a {
+    display: block;
+    margin-top: 5px;
+}
+
+.browse-body div a {
+    margin-top: 5px;
+}
+
+.browse-menu, .browse-cuisine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-body {
@@ -218,6 +230,23 @@ button {
     display: block;
 }
 
+.register-body, .login-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-body form div input,
+.login-body form div input {
+    margin-top: 10px;
+    width: 300px;
+}
+
+.register-body form input,
+.login-body form input {
+    margin-top: 10px;
+}
 
 @media all and (max-width: 600px) {
     .nav-container {

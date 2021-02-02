@@ -21,7 +21,6 @@ function delete_recipe(button) {
         if (result) {
             // finds closest parent element with recipe-box class
             const box = button.closest(".recipe-box");
-            console.log(box.classList.contains('hide'))
 
             // finds html element with the recipe name, then gets the name
             var name_element = button.parentElement.parentElement.querySelector(".recipe-name")

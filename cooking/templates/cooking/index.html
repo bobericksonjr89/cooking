@@ -25,7 +25,7 @@
                     <img class="recipe-image desktop-image" src="{{ recipe_item.image.url }}">
                 {% endif %}
                 <div class="recipe-ingredients">{{ recipe_item.ingredients|safe }}</div>
-                <div class="recipe-creator">Uploaded by: {{ recipe_item.creator }}
+                <div class="recipe-creator">Uploaded by: <a href="{% url 'profile' recipe_item.creator %}">{{ recipe_item.creator }}</a>
                     {% if user.is_authenticated and user == recipe_item.creator %}
                         <form class="fake-button" action="{% url 'edit' recipe_item.name|slugify %}">
                             <input type="submit" value="Edit" />

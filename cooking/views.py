@@ -133,20 +133,31 @@ def recipe_view(request, recipe_name):
     })
 
 def menu_view(request, menu_name):
+    ## ?? NOT SURE
     menu_name = menu_name.replace('-', ' ')
-    menu_items = Menu.objects.filter(title__iexact=menu_name)
+    menu_item = Menu.objects.get(title__iexact=menu_name)
     #for menu_item in menu_items:
     #    if menu_item:
     #        menu_item.value = RecipeItem.objects.get(id=menu_item)
     return render(request, 'cooking/browse.html', {
-        'menu_items': menu_items
+        'menu_item': menu_item
     })
 
 def cuisine_view(request, cuisine_name):
-    return
+    category = cuisine_name.capitalize()
+    cuisine_recipes = RecipeItem.objects.filter(cuisine__iexact=category)
+    return render(request, 'cooking/browse.html', {
+        'recipes': cuisine_recipes,
+        'category': category
+    })
 
 def course_view(request, course_name):
-    return
+    category = course_name.capitalize()
+    course_recipes = RecipeItem.objects.filter(course__iexact=category)
+    return render(request, 'cooking/browse.html', {
+        'recipes': course_recipes,
+        'category': category
+    })
 
 
 @login_required
@@ -225,7 +236,7 @@ def profile(request, username):
         recipe_item.directions = markdown2.markdown(recipe_item.directions)
 
     return render(request, "cooking/profile.html", {
-        'recipe_items': recipe_items
+        'recipes': recipe_items
     })
 
 

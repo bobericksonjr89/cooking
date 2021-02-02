@@ -5,7 +5,7 @@
 <div class="index-body">
     <div class="recipe-container">
 
-        <div class="recipe-box" id="recipe-box">
+        <div class="recipe-box hide" id="recipe-box">
             <div class="recipe-summary">
                 <div class="recipe-cuisine">{{ recipe.cuisine }}</div>
                 <div class="recipe-course">{{ recipe.course }}</div>
@@ -25,7 +25,7 @@
                 {% endif %}
                 <div class="recipe-ingredients">{{ recipe.ingredients|safe }}</div>
                 <div class="recipe-directions">{{ recipe.directions|safe }}</div>
-                <div class="recipe-creator">Uploaded by: {{ recipe.creator }}
+                <div class="recipe-creator">Uploaded by: <a href="{% url 'profile' recipe.creator %}">{{ recipe.creator }}</a>
                     {% if user.is_authenticated and user == recipe.creator %}
                         <form class="fake-button" action="{% url 'edit' recipe.name|slugify %}">
                             <input type="submit" value="Edit" />

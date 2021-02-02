@@ -1,7 +1,7 @@
 {% extends "cooking/layout.html" %}
 
 {% block body %}
-
+<div class="register-body">
     <h2>Register</h2>
 
     <form action="{% url 'register' %}" method="post">
@@ -9,7 +9,7 @@
         <div>
             <input autofocus type="text" name="username" placeholder="Username">
         </div>
-        <div></div>
+        <div>
             <input type="email" name="email" placeholder="Email Address">
         </div>
         <div>
@@ -24,6 +24,6 @@
     {% if message %}
         <div>{{ message }}</div>
     {% endif %}
-
+</div>
 
 {% endblock %}
