@@ -22,13 +22,6 @@ class RecipeItem(models.Model):
     def __str__(self):
         return self.name
 
-class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    favorites = models.ManyToManyField(RecipeItem, related_name='favorited')
-
-    def __str__(self):
-        return self.user
-
 
 class Menu(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -20,5 +20,5 @@ urlpatterns = [
     path('course/<str:course_name>', views.course_view, name="course"),
 
     # API Routes
-    path("delete", views.delete_recipe, name="delete")
+    path("delete", views.delete_recipe, name="delete"),
 ]

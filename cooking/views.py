@@ -7,14 +7,14 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 import markdown2
 
-from .models import User, RecipeItem, UserProfile, Menu
+from .models import User, RecipeItem, Menu
 from .forms import RecipeForm, MenuForm, EditRecipeForm
 
 
 # Create your views here.
 def index(request):
-    # get all recipes from db
-    recipe_items = RecipeItem.objects.all()
+    # get 10 newest recipes from db
+    recipe_items = RecipeItem.objects.all().order_by('-id')[:10]
 
     # loop to convert ingredients and directions from markdown into html
     for recipe_item in recipe_items:
@@ -24,6 +24,7 @@ def index(request):
     return render(request, "cooking/index.html", {
         "recipe_items": recipe_items
     })
+
 
 
 def register(request):
@@ -132,6 +133,7 @@ def recipe_view(request, recipe_name):
         'recipe': recipe,
     })
 
+
 def menu_view(request, menu_name):
     ## ?? NOT SURE
     menu_name = menu_name.replace('-', ' ')
@@ -143,6 +145,7 @@ def menu_view(request, menu_name):
         'menu_item': menu_item
     })
 
+
 def cuisine_view(request, cuisine_name):
     category = cuisine_name.capitalize()
     cuisine_recipes = RecipeItem.objects.filter(cuisine__iexact=category)
@@ -150,6 +153,7 @@ def cuisine_view(request, cuisine_name):
         'recipes': cuisine_recipes,
         'category': category
     })
+
 
 def course_view(request, course_name):
     category = course_name.capitalize()
