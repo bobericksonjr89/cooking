@@ -11,7 +11,6 @@ urlpatterns = [
     path('browse', views.browse_recipes, name="browse"),
     path('new_menu', views.menu_create, name="new_menu"),
     path('search', views.search_recipes, name="search"),
-    path('favorite', views.favorite_recipe, name="favorite"),
     path('profile/<str:username>', views.profile, name="profile"),
     path('edit/<str:recipe_name>', views.edit_recipe, name="edit"),
     path('recipe/<str:recipe_name>', views.recipe_view, name="recipe"),
@@ -21,4 +20,5 @@ urlpatterns = [
 
     # API Routes
     path("delete", views.delete_recipe, name="delete"),
+    path("delete_menu", views.delete_menu, name="delete menu"),
 ]

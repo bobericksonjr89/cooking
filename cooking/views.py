@@ -135,12 +135,8 @@ def recipe_view(request, recipe_name):
 
 
 def menu_view(request, menu_name):
-    ## ?? NOT SURE
     menu_name = menu_name.replace('-', ' ')
     menu_item = Menu.objects.get(title__iexact=menu_name)
-    #for menu_item in menu_items:
-    #    if menu_item:
-    #        menu_item.value = RecipeItem.objects.get(id=menu_item)
     return render(request, 'cooking/browse.html', {
         'menu_item': menu_item
     })
@@ -192,6 +188,7 @@ def search_recipes(request):
     ## REPEATING.. need to clean up
     if request.method == "POST":
         search = request.POST["search-field"]
+        message = ''
         if search == "":
             message = "Please type something in the search box."
             return render(request, 'cooking/search.html', {
@@ -202,32 +199,32 @@ def search_recipes(request):
             results = RecipeItem.objects.filter(name__icontains=search)
             if not results:
                 message = "Sorry, couldn't find any recipes matching that query."
-                return render(request, 'cooking/search.html', {
-                    "results": results,
-                    "message": message
-                })
+            return render(request, 'cooking/search.html', {
+                "recipe": 'True',
+                "results": results,
+                "message": message
+            })
 
         elif request.POST["search-radio"] == "ingredient":
             results = RecipeItem.objects.filter(ingredients__icontains=search)
             if not results:
                 message = "Sorry, couldn't find any recipes with ingredients matching that query."
-                return render(request, 'cooking/search.html', {
-                    "results": results,
-                    "message": message
-                })
+            return render(request, 'cooking/search.html', {
+                "recipe": 'True',
+                "results": results,
+                "message": message
+            })
 
         elif request.POST["search-radio"] == "menu": 
             results = Menu.objects.filter(title__icontains=search)
             if not results:
                 message = "Sorry, couldn't find any menus matching that query."
-                return render(request, 'cooking/search.html', {
-                    "results": results,
-                    "message": message
-                })
+            return render(request, 'cooking/search.html', {
+                "menu": 'True',
+                "results": results,
+                "message": message
+            })
 
-        return render(request, 'cooking/search.html', {
-            "results": results,
-        })
 
     return render(request, 'cooking/search.html')
 
@@ -243,10 +240,6 @@ def profile(request, username):
         'recipes': recipe_items
     })
 
-
-@login_required
-def favorite_recipe(request):
-    return
 
 
 @login_required
@@ -283,3 +276,20 @@ def delete_recipe(request):
     else:
         recipe_to_delete.delete()
         return JsonResponse({"message": "Recipe deleted successfully."}, status=201)
+
+@login_required
+def delete_menu(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+     # get data from json request
+    data = json.loads(request.body)
+    menu_title = data.get("title")
+
+    # get menu and confirm user, delete menu if valid
+    menu_to_delete = Menu.objects.get(title=menu_title)
+    if request.user != menu_to_delete.creator:
+        return JsonResponse({"error": "Users can only delete their own menus."}, status=400)
+    else:
+        menu_to_delete.delete()
+        return JsonResponse({"message": "Menu deleted successfully."}, status=201)

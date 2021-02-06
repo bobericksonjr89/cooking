@@ -23,9 +23,16 @@
     <div class="search-results">
     {% if results %}
         <ul>
-            {% for result in results %}
-            <li>{{ result }}</li>
-            {% endfor %}
+            {% if recipe %}
+                {% for result in results %}
+                <li><a href="{% url 'recipe' result|slugify %}">{{ result }}</a></li>
+                {% endfor %}
+            {% endif %}
+            {% if menu %}
+                {% for result in results %}
+                <li><a href="{% url 'menu' result|slugify %}">{{ result }}</a></li>
+                {% endfor %}
+            {% endif %}
         </ul>
     {% endif %}
     {% if message %}

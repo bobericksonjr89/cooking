@@ -15,7 +15,6 @@ a:link, a:visited {
 
 button {
     font-family: inherit;
-
 }
 
 .fake-button {
@@ -196,6 +195,11 @@ button {
     align-items: center;
     justify-content: center;
 }
+
+.menu-delete {
+    margin-top: 10px;
+}
+
 
 .search-body {
     display: flex;

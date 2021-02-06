@@ -13,7 +13,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // click detection on menu-delete button
+    if (document.querySelector('.menu-delete')) {
+        document.querySelector('.menu-delete').onclick = function() {
+            console.log(this);
+            const menu_title = document.querySelector('.menu-title').innerHTML;
+            console.log(menu_title);
+            delete_menu(menu_title);
+        };
+    };
+    
 });
+
+
+function delete_menu(title) {
+    // get csrf token for fetch request
+    let csrftoken = getCookie('csrftoken')
+
+    // send cookie and menu name to delete menu view
+    fetch('/delete_menu', {
+        method: 'POST',
+        body: JSON.stringify({
+            title: title,
+        }),
+        headers: { "X-CSRFToken": csrftoken }
+        
+        })
+        .then(response => response.json())
+        .then(result => {
+        console.log(result);
+        });
+
+        window.location.replace('/');
+
+};
 
 
 function delete_recipe(button) {
